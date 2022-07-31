@@ -1,40 +1,45 @@
-import React, { useState, useRef, useEffect } from 'react'
-import BreakComponent from '../BreakComponent/BreakComponent'
+import React, { useState, useRef, useEffect, FunctionComponent } from 'react'
 
-const TimerComponent = () => {
+interface Props {
+  hours: number
+  minutes: number
+  seconds: number
+}
+
+const TimerComponent: FunctionComponent<Props> = (props: Props) => {
+  const { hours, minutes, seconds } = props
   // We need ref in this, because we are dealing
   // with JS setInterval to keep track of it and
   // stop it when needed
   const Ref = useRef(null)
 
-  // The state for our timer
   const [timer, setTimer] = useState<any>('00:00:00')
 
   const getTimeRemaining = (e) => {
     const total: any = Date.parse(e) - Date.parse(new Date())
-    const seconds = Math.floor((total / 1000) % 60)
-    const minutes = Math.floor((total / 1000 / 60) % 60)
-    const hours = Math.floor((total / 1000 / 60 / 60) % 24)
+    const secondsT = Math.floor((total / 1000) % 60)
+    const minutesT = Math.floor((total / 1000 / 60) % 60)
+    const hoursT = Math.floor((total / 1000 / 60 / 60) % 24)
     return {
       total,
-      hours,
-      minutes,
-      seconds
+      hoursT,
+      minutesT,
+      secondsT
     }
   }
 
   const startTimer = (e) => {
-    let { total, hours, minutes, seconds } = getTimeRemaining(e)
+    let { total, hoursT, minutesT, secondsT } = getTimeRemaining(e)
     if (total >= 0) {
       // update the timer
       // check if less than 10 then we need to
       // add '0' at the beginning of the variable
       setTimer(
-        (hours > 9 ? hours : '0' + hours) +
+        (hoursT > 9 ? hoursT : '0' + hoursT) +
           ':' +
-          (minutes > 9 ? minutes : '0' + minutes) +
+          (minutesT > 9 ? minutesT : '0' + minutesT) +
           ':' +
-          (seconds > 9 ? seconds : '0' + seconds)
+          (secondsT > 9 ? secondsT : '0' + secondsT)
       )
     }
   }
@@ -43,7 +48,7 @@ const TimerComponent = () => {
     // If you adjust it you should also need to
     // adjust the Endtime formula we are about
     // to code next
-    setTimer('00:00:00')
+    setTimer(`${hours}:${minutes}:${seconds}`)
 
     // If you try to remove this line the
     // updating of timer Variable will be
@@ -55,14 +60,14 @@ const TimerComponent = () => {
     Ref.current = id
   }
 
-  const getDeadTime = (time: number = 1) => {
+  const getDeadTime = () => {
     let deadline = new Date()
 
     // This is where you need to adjust if
     // you entend to add more time
-    deadline.setSeconds(deadline.getSeconds() + 10)
-    deadline.setMinutes(deadline.getMinutes() + time)
-    deadline.setHours(deadline.getHours() + 0)
+    deadline.setHours(deadline.getSeconds() + hours)
+    deadline.setMinutes(deadline.getMinutes() + minutes)
+    deadline.setSeconds(deadline.getHours() + seconds)
     return deadline
   }
 
@@ -83,14 +88,8 @@ const TimerComponent = () => {
     clearTimer(getDeadTime())
   }
 
-  const onClickButton = () => {
-    clearTimer(getDeadTime(3))
-  }
-
   return (
     <div className="flex justify-center">
-      <button onClick={onClickButton}>Pomodora</button>{' '}
-      <button>Short Break</button> <button>Long break</button>
       <h2>{timer}</h2>
       <button onClick={onClickReset}>Reset</button>
     </div>
