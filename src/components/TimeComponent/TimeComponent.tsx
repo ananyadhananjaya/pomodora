@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+import BreakComponent from '../BreakComponent/BreakComponent'
 
 const TimerComponent = () => {
   // We need ref in this, because we are dealing
@@ -42,7 +43,7 @@ const TimerComponent = () => {
     // If you adjust it you should also need to
     // adjust the Endtime formula we are about
     // to code next
-    setTimer('00:00:10')
+    setTimer('00:00:00')
 
     // If you try to remove this line the
     // updating of timer Variable will be
@@ -54,12 +55,14 @@ const TimerComponent = () => {
     Ref.current = id
   }
 
-  const getDeadTime = () => {
+  const getDeadTime = (time: number = 1) => {
     let deadline = new Date()
 
     // This is where you need to adjust if
     // you entend to add more time
     deadline.setSeconds(deadline.getSeconds() + 10)
+    deadline.setMinutes(deadline.getMinutes() + time)
+    deadline.setHours(deadline.getHours() + 0)
     return deadline
   }
 
@@ -80,8 +83,14 @@ const TimerComponent = () => {
     clearTimer(getDeadTime())
   }
 
+  const onClickButton = () => {
+    clearTimer(getDeadTime(3))
+  }
+
   return (
-    <div className="TimerComponent">
+    <div className="flex justify-center">
+      <button onClick={onClickButton}>Pomodora</button>{' '}
+      <button>Short Break</button> <button>Long break</button>
       <h2>{timer}</h2>
       <button onClick={onClickReset}>Reset</button>
     </div>
