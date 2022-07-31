@@ -37,11 +37,17 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
       // check if less than 10 then we need to
       // add '0' at the beginning of the variable
       setTimer(
-        (hoursT > 9 ? hoursT : '0' + hoursT) +
-          ':' +
-          (minutesT > 9 ? minutesT : '0' + minutesT) +
-          ':' +
-          (secondsT > 9 ? secondsT : '0' + secondsT)
+        `${
+          hoursT < 9 && hoursT.toString().length == 1 ? '0' + hoursT : hoursT
+        }:${
+          minutesT < 9 && minutesT.toString().length === 1
+            ? '0' + minutesT
+            : minutesT
+        }:${
+          secondsT < 9 && secondsT.toString().length === 1
+            ? '0' + secondsT
+            : secondsT
+        }`
       )
     }
     setFormatHour(hoursT > 9 ? hoursT : '0' + hoursT)
@@ -49,15 +55,18 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
     setFormatSec(secondsT < 9 ? '0' + secondsT : secondsT.toString())
   }
 
-  const clearTimer = (e: any) => {
+  const clearTimer = (e: any, hours: any, minutes: any, seconds: any) => {
     // If you adjust it you should also need to
     // adjust the Endtime formula we are about
     // to code next
 
+    console.log(hours, typeof hours)
     setTimer(
-      `${hours < 9 ? '0' + hours : hours}:${
-        minutes < 9 ? '0' + minutes : minutes
-      }:${seconds < 9 ? '0' + seconds : seconds}`
+      `${hours < 9 && hours.toString().length == 1 ? '0' + hours : hours}:${
+        minutes < 9 && minutes.toString().length === 1 ? '0' + minutes : minutes
+      }:${
+        seconds < 9 && seconds.toString().length === 1 ? '0' + seconds : seconds
+      }`
     )
     setFormatHour(hours < 9 ? '0' + hours : hours)
     setFormatMin(minutes < 9 ? '0' + minutes : minutes)
@@ -78,6 +87,7 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
     if (pause) clearInterval(Ref.current)
     else {
       let [hours, minutes, seconds] = timer.split(':')
+      console.log(hours, minutes, seconds)
       let deadline = new Date()
 
       // This is where you need to adjust if
@@ -85,12 +95,8 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
       deadline.setHours(deadline.getHours() + parseInt(hours))
       deadline.setMinutes(deadline.getMinutes() + parseInt(minutes))
       deadline.setSeconds(deadline.getSeconds() + parseInt(seconds))
-      setTimer(
-        `${parseInt(hours) < 9 ? '0' + hours : hours}:${
-          parseInt(minutes) < 9 ? '0' + minutes : minutes
-        }:${parseInt(seconds) < 9 ? '0' + seconds : seconds}`
-      )
-      clearTimer(deadline)
+      setTimer(`${hours}:${minutes}:${seconds}`)
+      clearTimer(deadline, hours, minutes, seconds)
     }
   }, [pause])
 
@@ -106,11 +112,11 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
   }
 
   useEffect(() => {
-    clearTimer(getDeadTime())
+    clearTimer(getDeadTime(), hours, minutes, seconds)
   }, [flag])
 
   const onClickReset = () => {
-    clearTimer(getDeadTime())
+    clearTimer(getDeadTime(), hours, minutes, seconds)
   }
 
   const onClickPause = () => {
