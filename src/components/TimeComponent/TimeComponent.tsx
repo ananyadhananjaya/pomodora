@@ -4,19 +4,17 @@ interface Props {
   hours: number
   minutes: number
   seconds: number
+  flag: boolean
 }
 
 const TimerComponent: FunctionComponent<Props> = (props: Props) => {
-  const { hours, minutes, seconds } = props
-  // We need ref in this, because we are dealing
-  // with JS setInterval to keep track of it and
-  // stop it when needed
-  const Ref = useRef(null)
+  const { hours, minutes, seconds, flag } = props
+  const Ref = useRef<any>(null)
 
   const [timer, setTimer] = useState<any>('00:00:00')
 
-  const getTimeRemaining = (e) => {
-    const total: any = Date.parse(e) - Date.parse(new Date())
+  const getTimeRemaining = (e: any) => {
+    const total: any = Date.parse(e) - Date.parse(new Date().toString())
     const secondsT = Math.floor((total / 1000) % 60)
     const minutesT = Math.floor((total / 1000 / 60) % 60)
     const hoursT = Math.floor((total / 1000 / 60 / 60) % 24)
@@ -28,7 +26,7 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
     }
   }
 
-  const startTimer = (e) => {
+  const startTimer = (e: any) => {
     let { total, hoursT, minutesT, secondsT } = getTimeRemaining(e)
     if (total >= 0) {
       // update the timer
@@ -44,7 +42,7 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
     }
   }
 
-  const clearTimer = (e) => {
+  const clearTimer = (e: any) => {
     // If you adjust it you should also need to
     // adjust the Endtime formula we are about
     // to code next
@@ -65,25 +63,16 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
 
     // This is where you need to adjust if
     // you entend to add more time
-    deadline.setHours(deadline.getSeconds() + hours)
+    deadline.setHours(deadline.getHours() + hours)
     deadline.setMinutes(deadline.getMinutes() + minutes)
-    deadline.setSeconds(deadline.getHours() + seconds)
+    deadline.setSeconds(deadline.getSeconds() + seconds)
     return deadline
   }
 
-  // We can use useEffect so that when the component
-  // mount the timer will start as soon as possible
-
-  // We put empty array to act as componentDid
-  // mount only
   useEffect(() => {
     clearTimer(getDeadTime())
-  }, [])
+  }, [flag])
 
-  // Another way to call the clearTimer() to start
-  // the countdown is via action event from the
-  // button first we create function to be called
-  // by the button
   const onClickReset = () => {
     clearTimer(getDeadTime())
   }

@@ -8,11 +8,13 @@ const BreakComponent: FunctionComponent = () => {
   const [hours, setHours] = useState<number>(0)
   const [minutes, setMinutes] = useState<number>(0)
   const [seconds, setSeconds] = useState<number>(0)
+  const [flag, setFlag] = useState<boolean>(true)
 
-  const handlePomodora = (hours: number, minutes: number, seconds: number) => {
+  const handleTimer = (hours: number, minutes: number, seconds: number) => {
     setHours(hours)
     setMinutes(minutes)
     setSeconds(seconds)
+    setFlag(!flag)
   }
 
   return (
@@ -20,21 +22,32 @@ const BreakComponent: FunctionComponent = () => {
       <div className="flex flex-row flex-wrap justify-center p-10 gap-10 grow">
         <div
           className="flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg"
-          onClick={() => handlePomodora(0, 0, 35)}
+          onClick={() => handleTimer(0, 25, 0)}
         >
           <div>Pomodora Time</div>
           <div className=" flex justify-center">{pomodora}</div>
         </div>
-        <div className="flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg">
+        <div
+          className="flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg"
+          onClick={() => handleTimer(0, 5, 0)}
+        >
           <div>Short Break</div>
           <div className=" flex justify-center">{shortBreak}</div>
         </div>
-        <div className="flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg">
+        <div
+          className="flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg"
+          onClick={() => handleTimer(0, 10, 0)}
+        >
           <div>Long Break</div>
           <div className="flex justify-center">{longBreak}</div>
         </div>
       </div>
-      <TimerComponent hours={hours} minutes={minutes} seconds={seconds} />
+      <TimerComponent
+        hours={hours}
+        minutes={minutes}
+        seconds={seconds}
+        flag={flag}
+      />
     </>
   )
 }
