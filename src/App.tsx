@@ -4,7 +4,7 @@ import Footer from './components/Footer'
 
 function App() {
   return (
-    <div className="mx-28 h-screen">
+    <div className="container md:mx-auto lg: mx-4 h-screen">
       <AppBar />
       <BreakComponent />
       <Footer />

@@ -46,7 +46,11 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
     // If you adjust it you should also need to
     // adjust the Endtime formula we are about
     // to code next
-    setTimer(`${hours}:${minutes}:${seconds}`)
+    setTimer(
+      `${hours < 9 ? '0' + hours : hours}:${
+        minutes < 9 ? '0' + minutes : minutes
+      }:${seconds < 9 ? '0' + seconds : seconds}`
+    )
 
     // If you try to remove this line the
     // updating of timer Variable will be
@@ -78,10 +82,21 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
   }
 
   return (
-    <div className="flex justify-center">
-      <h2>{timer}</h2>
-      <button onClick={onClickReset}>Reset</button>
-    </div>
+    <>
+      <div className="flex flex-wrap justify-center p-10 gap-10 grow">
+        <div>
+          <h2>{timer}</h2>
+        </div>
+      </div>
+      <div className="flex flex-wrap justify-center  gap-10 grow">
+        <button
+          className="px-12 py-2 tracking-wider rounded-lg shadow-lg bg-slate-400 hover:ring-2 hover:bg-slate-500 hover:text-slate-100 ring-slate-400 ring-offset-2"
+          onClick={onClickReset}
+        >
+          Reset
+        </button>
+      </div>
+    </>
   )
 }
 
