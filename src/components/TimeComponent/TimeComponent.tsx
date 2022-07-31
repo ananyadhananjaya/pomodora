@@ -115,6 +115,7 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
 
   const onClickPause = () => {
     setPause(!pause)
+    console.log(formatHour, formatMin, formatSec)
   }
 
   return (
