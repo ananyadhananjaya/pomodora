@@ -1,16 +1,32 @@
 import { FunctionComponent } from 'react'
+import { FaRegMoon } from 'react-icons/fa'
+import { BiSun } from 'react-icons/bi'
 
-const AppBar: FunctionComponent = () => {
+interface Props {
+  setTheme: (val: any) => void
+  theme: 'light' | 'dark'
+}
+
+const AppBar: FunctionComponent<Props> = (props: Props) => {
+  const { setTheme, theme } = props
+
+  const handleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark')
+  }
   return (
     <div className="divide-y">
       <div className="flex flex-row flex-wrap justify-between p-6 gap-10">
         <div>Pomodora</div>
         <div className="flex gap-8">
           <div>Settings</div>
-          <div>Theme</div>
+          <div
+            className="hover:cursor-pointer dark:text-slate-50"
+            onClick={handleTheme}
+          >
+            {theme === 'dark' ? <FaRegMoon /> : <BiSun />}
+          </div>
         </div>
       </div>
-      <div></div>
     </div>
   )
 }
