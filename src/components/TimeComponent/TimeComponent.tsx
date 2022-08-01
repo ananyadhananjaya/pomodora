@@ -12,9 +12,6 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
   const Ref = useRef<any>(null)
 
   const [timer, setTimer] = useState<string>('00:00:00')
-  const [formatSec, setFormatSec] = useState<string | number>('00')
-  const [formatMin, setFormatMin] = useState<string | number>('00')
-  const [formatHour, setFormatHour] = useState<string | number>('00')
   const [pause, setPause] = useState<boolean>(false)
 
   const getTimeRemaining = (e: any) => {
@@ -50,9 +47,6 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
         }`
       )
     }
-    setFormatHour(hoursT > 9 ? hoursT : '0' + hoursT)
-    setFormatMin(minutesT > 9 ? minutesT : '0' + minutesT)
-    setFormatSec(secondsT < 9 ? '0' + secondsT : secondsT.toString())
   }
 
   const clearTimer = (e: any, hours: any, minutes: any, seconds: any) => {
@@ -68,9 +62,6 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
         seconds < 9 && seconds.toString().length === 1 ? '0' + seconds : seconds
       }`
     )
-    setFormatHour(hours < 9 ? '0' + hours : hours)
-    setFormatMin(minutes < 9 ? '0' + minutes : minutes)
-    setFormatSec(seconds < 9 ? '0' + seconds : seconds)
 
     // If you try to remove this line the
     // updating of timer Variable will be
@@ -121,7 +112,11 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
 
   const onClickPause = () => {
     setPause(!pause)
-    console.log(formatHour, formatMin, formatSec)
+  }
+
+  const onClickStop = () => {
+    setTimer('00:00:00')
+    clearTimer(new Date(), 0, 0, 0)
   }
 
   return (
@@ -146,6 +141,14 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
             onClick={() => onClickPause()}
           >
             Pause
+          </button>
+        </div>
+        <div>
+          <button
+            className="px-12 py-2 tracking-wider rounded-lg shadow-lg bg-slate-400 hover:ring-2 hover:bg-slate-500 hover:text-slate-100 ring-slate-400 ring-offset-2"
+            onClick={() => onClickStop()}
+          >
+            Stop
           </button>
         </div>
       </div>
