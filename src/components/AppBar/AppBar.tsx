@@ -3,6 +3,7 @@ import { FaRegMoon } from 'react-icons/fa'
 import { BiSun } from 'react-icons/bi'
 
 interface Props {
+  // eslint-disable-next-line no-unused-vars
   setTheme: (val: any) => void
   theme: 'light' | 'dark'
 }

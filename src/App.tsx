@@ -13,8 +13,6 @@ function App() {
     } else {
       document.documentElement.classList.remove('dark')
     }
-    console.log(document.documentElement.classList)
-    console.log(theme)
   }, [theme])
 
   return (
