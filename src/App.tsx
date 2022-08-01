@@ -16,7 +16,7 @@ function App() {
   }, [theme])
 
   return (
-    <div className="md:px-20 lg:px-60 xl:px-80 md:mx-auto  h-screen bg:white dark:bg-slate-900">
+    <div className="md:px-14 lg:px-36 xl:px-80 h-screen bg-slate-50 dark:bg-slate-900">
       <AppBar theme={theme} setTheme={setTheme} />
       <BreakComponent />
       <Footer />
