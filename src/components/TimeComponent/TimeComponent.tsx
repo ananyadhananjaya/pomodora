@@ -156,7 +156,7 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
           {timer}
         </div>
       </div>
-      <div className="py-4">
+      <div className="py-4 text-slate-600 dark:text-slate-400">
         <div className="text-center tracking-wide font-sans">{message}</div>
       </div>
       <div className="flex flex-wrap justify-center  gap-10 grow">

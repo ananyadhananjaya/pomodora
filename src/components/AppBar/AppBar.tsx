@@ -15,16 +15,20 @@ const AppBar: FunctionComponent<Props> = (props: Props) => {
     setTheme(theme === 'dark' ? 'light' : 'dark')
   }
   return (
-    <div className="divide-y">
+    <div>
       <div className="flex flex-row flex-wrap justify-between p-6 gap-10">
-        <div>Pomodora</div>
+        <div className="text-4xl tracking-widest font-extrabold font-mono text-slate-600 dark:text-slate-100">
+          Pomodora
+        </div>
         <div className="flex gap-8">
-          <div>Settings</div>
+          <div className="px-4 py-1 rounded-lg shadow bg-slate-200 hover:shadow-lg hover:bg-slate-100 hover:cursor-pointer">
+            <div className="text-slate-700 tracking-wide">Settings</div>
+          </div>
           <div
-            className="hover:cursor-pointer dark:text-slate-50"
+            className="m-auto hover:cursor-pointer dark:text-slate-50"
             onClick={handleTheme}
           >
-            {theme === 'dark' ? <FaRegMoon /> : <BiSun />}
+            {theme === 'light' ? <FaRegMoon size={24} /> : <BiSun size={24} />}
           </div>
         </div>
       </div>

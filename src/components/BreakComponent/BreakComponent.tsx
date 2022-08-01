@@ -22,7 +22,11 @@ const BreakComponent: FunctionComponent = () => {
     <>
       <div className="flex flex-row flex-wrap justify-center p-10 gap-10 grow">
         <div
-          className="flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg"
+          className={`${
+            typeOfPomo === 'Pomodora'
+              ? 'flex flex-col bg-slate-100 rounded-lg p-4 shadow-md hover:cursor-pointer hover:shadow'
+              : 'flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg'
+          }`}
           onClick={() => {
             handleTimer(0, pomodora, 0)
             setTypeOfPomo('Pomodora')
@@ -32,7 +36,11 @@ const BreakComponent: FunctionComponent = () => {
           <div className=" flex justify-center">{pomodora}</div>
         </div>
         <div
-          className="flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg"
+          className={`${
+            typeOfPomo === 'Short Break'
+              ? 'flex flex-col bg-slate-100 rounded-lg p-4 shadow-md hover:cursor-pointer hover:shadow'
+              : 'flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg'
+          }`}
           onClick={() => {
             handleTimer(0, shortBreak, 0)
             setTypeOfPomo('Short Break')
@@ -42,7 +50,11 @@ const BreakComponent: FunctionComponent = () => {
           <div className=" flex justify-center">{shortBreak}</div>
         </div>
         <div
-          className="flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg"
+          className={`${
+            typeOfPomo === 'Long Break'
+              ? 'flex flex-col bg-slate-100 rounded-lg p-4 shadow-md hover:cursor-pointer hover:shadow'
+              : 'flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg'
+          }`}
           onClick={() => {
             handleTimer(0, longBreak, 0)
             setTypeOfPomo('Long Break')
