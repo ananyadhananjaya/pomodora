@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect, FunctionComponent } from 'react'
+import { FaPause, FaStop } from 'react-icons/fa'
+import { GrRotateRight } from 'react-icons/gr'
 
 interface Props {
   hours: number
@@ -126,29 +128,23 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
         </div>
       </div>
       <div className="flex flex-wrap justify-center  gap-10 grow">
-        <div>
-          <button
-            className="px-12 py-2 tracking-wider rounded-lg shadow-lg bg-slate-400 hover:ring-2 hover:bg-slate-500 hover:text-slate-100 ring-slate-400 ring-offset-2"
-            onClick={onClickReset}
-          >
-            Reset
-          </button>
+        <div
+          className="w-12 h-12 flex flex-row items-center gap-2 justify-center bg-slate-200 rounded-full shadow-lg hover:cursor-pointer hover:shadow-xl hover:bg-slate-300 hover:scale-105"
+          onClick={onClickReset}
+        >
+          <GrRotateRight className="text-slate-500 font-bold" size={24} />
         </div>
-        <div>
-          <button
-            className="px-12 py-2 tracking-wider rounded-lg shadow-lg bg-slate-400 hover:ring-2 hover:bg-slate-500 hover:text-slate-100 ring-slate-400 ring-offset-2"
-            onClick={() => onClickPause()}
-          >
-            Pause
-          </button>
+        <div
+          className="w-16 h-16 flex flex-row items-center gap-2 justify-center bg-red-500 rounded-full shadow-lg hover:cursor-pointer hover:drop-shadow-xl hover:bg-red-600 hover:scale-105"
+          onClick={() => onClickPause()}
+        >
+          <FaPause className="text-slate-200 hover:scale-125" />
         </div>
-        <div>
-          <button
-            className="px-12 py-2 tracking-wider rounded-lg shadow-lg bg-slate-400 hover:ring-2 hover:bg-slate-500 hover:text-slate-100 ring-slate-400 ring-offset-2"
-            onClick={() => onClickStop()}
-          >
-            Stop
-          </button>
+        <div
+          className="w-12 h-12 flex flex-row items-center gap-2 justify-center bg-slate-200 rounded-full shadow-lg hover:cursor-pointer hover:shadow-xl hover:bg-slate-300 hover:scale-105"
+          onClick={() => onClickStop()}
+        >
+          <FaStop className="text-slate-500" />
         </div>
       </div>
     </>
