@@ -7,14 +7,44 @@ interface Props {
   minutes: number
   seconds: number
   flag: boolean
+  typeOfPomo: string
 }
 
 const TimerComponent: FunctionComponent<Props> = (props: Props) => {
-  const { hours, minutes, seconds, flag } = props
+  const { hours, minutes, seconds, flag, typeOfPomo } = props
   const Ref = useRef<any>(null)
 
   const [timer, setTimer] = useState<string>('00:00:00')
   const [pause, setPause] = useState<boolean>(false)
+  const [message, setMessage] = useState<string>('...')
+
+  useEffect(() => {
+    switch (typeOfPomo) {
+      case 'Pomodora':
+        setMessage(
+          `Let's focus for ${hours > 0 ? hours + ' Hours' : ''}  ${
+            minutes > 0 ? minutes + ' Minutes' : ''
+          } ${seconds > 0 ? seconds + ' seconds' : ''}!`
+        )
+        break
+      case 'Short Break':
+        setMessage(
+          `Take a break for ${hours > 0 ? hours + ' Hours' : ''}  ${
+            minutes > 0 ? minutes + ' Minutes' : ''
+          } ${seconds > 0 ? seconds + ' seconds' : ''}!`
+        )
+        break
+      case 'Long Break':
+        setMessage(
+          `Chill for ${hours > 0 ? hours + ' Hours' : ''}  ${
+            minutes > 0 ? minutes + ' Minutes' : ''
+          } ${seconds > 0 ? seconds + ' seconds' : ''}!`
+        )
+        break
+      default:
+        setMessage('...')
+    }
+  }, [typeOfPomo])
 
   const getTimeRemaining = (e: any) => {
     const total: any = Date.parse(e) - Date.parse(new Date().toString())
@@ -79,7 +109,6 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
     if (pause) clearInterval(Ref.current)
     else {
       let [hours, minutes, seconds] = timer.split(':')
-      console.log(hours, minutes, seconds)
       let deadline = new Date()
 
       // This is where you need to adjust if
@@ -126,6 +155,9 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
         <div className="text-slate-700 text-6xl lg:text-9xl font-semibold">
           {timer}
         </div>
+      </div>
+      <div className="py-4">
+        <div className="text-center tracking-wide font-sans">{message}</div>
       </div>
       <div className="flex flex-wrap justify-center  gap-10 grow">
         <div

@@ -8,6 +8,7 @@ const BreakComponent: FunctionComponent = () => {
   const [hours, setHours] = useState<number>(0)
   const [minutes, setMinutes] = useState<number>(0)
   const [seconds, setSeconds] = useState<number>(0)
+  const [typeOfPomo, setTypeOfPomo] = useState<string>('')
   const [flag, setFlag] = useState<boolean>(true)
 
   const handleTimer = (hours: number, minutes: number, seconds: number) => {
@@ -22,21 +23,30 @@ const BreakComponent: FunctionComponent = () => {
       <div className="flex flex-row flex-wrap justify-center p-10 gap-10 grow">
         <div
           className="flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg"
-          onClick={() => handleTimer(0, 25, 0)}
+          onClick={() => {
+            handleTimer(0, pomodora, 0)
+            setTypeOfPomo('Pomodora')
+          }}
         >
           <div>Pomodora Time</div>
           <div className=" flex justify-center">{pomodora}</div>
         </div>
         <div
           className="flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg"
-          onClick={() => handleTimer(0, 5, 0)}
+          onClick={() => {
+            handleTimer(0, shortBreak, 0)
+            setTypeOfPomo('Short Break')
+          }}
         >
           <div>Short Break</div>
           <div className=" flex justify-center">{shortBreak}</div>
         </div>
         <div
           className="flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg"
-          onClick={() => handleTimer(0, 15, 0)}
+          onClick={() => {
+            handleTimer(0, longBreak, 0)
+            setTypeOfPomo('Long Break')
+          }}
         >
           <div>Long Break</div>
           <div className="flex justify-center">{longBreak}</div>
@@ -47,6 +57,7 @@ const BreakComponent: FunctionComponent = () => {
         minutes={minutes}
         seconds={seconds}
         flag={flag}
+        typeOfPomo={typeOfPomo}
       />
     </>
   )
