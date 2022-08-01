@@ -54,7 +54,6 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
     // adjust the Endtime formula we are about
     // to code next
 
-    console.log(hours, typeof hours)
     setTimer(
       `${hours < 9 && hours.toString().length == 1 ? '0' + hours : hours}:${
         minutes < 9 && minutes.toString().length === 1 ? '0' + minutes : minutes
