@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useState } from 'react'
 import { FaRegMoon } from 'react-icons/fa'
 import { BiSun } from 'react-icons/bi'
 
@@ -21,9 +21,6 @@ const AppBar: FunctionComponent<Props> = (props: Props) => {
           Pomodora
         </div>
         <div className="flex gap-8">
-          <div className="px-4 py-1 rounded-lg shadow bg-slate-200 hover:shadow-lg hover:bg-slate-100 hover:cursor-pointer">
-            <div className="text-slate-700 tracking-wide">Settings</div>
-          </div>
           <div
             className="m-auto hover:cursor-pointer dark:text-slate-50"
             onClick={handleTheme}
