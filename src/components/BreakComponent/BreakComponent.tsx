@@ -2,8 +2,10 @@ import { FunctionComponent, useState } from 'react'
 import TimerComponent from '../TimeComponent'
 import { CgTimer } from 'react-icons/cg'
 import { RiTimerLine, RiTimer2Line } from 'react-icons/ri'
+import click from '/click.mp3'
 
 const BreakComponent: FunctionComponent = () => {
+  let audio = new Audio(click)
   const [pomodora, setPomodora] = useState<number>(25)
   const [shortBreak, setShortBreak] = useState<number>(5)
   const [longBreak, setLongBreak] = useState<number>(15)
@@ -12,6 +14,17 @@ const BreakComponent: FunctionComponent = () => {
   const [seconds, setSeconds] = useState<number>(0)
   const [typeOfPomo, setTypeOfPomo] = useState<string>('')
   const [flag, setFlag] = useState<boolean>(true)
+
+  const clickSound = () => {
+    audio
+      .play()
+      .then(() => {
+        console.log('click')
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+  }
 
   const handleTimer = (hours: number, minutes: number, seconds: number) => {
     setHours(hours)
@@ -32,6 +45,7 @@ const BreakComponent: FunctionComponent = () => {
           onClick={() => {
             handleTimer(0, pomodora, 0)
             setTypeOfPomo('Pomodora')
+            clickSound()
           }}
         >
           <div className="flex gap-2">
@@ -49,6 +63,7 @@ const BreakComponent: FunctionComponent = () => {
           onClick={() => {
             handleTimer(0, shortBreak, 0)
             setTypeOfPomo('Short Break')
+            clickSound()
           }}
         >
           <div className="flex gap-2">
@@ -66,6 +81,7 @@ const BreakComponent: FunctionComponent = () => {
           onClick={() => {
             handleTimer(0, longBreak, 0)
             setTypeOfPomo('Long Break')
+            clickSound()
           }}
         >
           <div className="flex gap-2">

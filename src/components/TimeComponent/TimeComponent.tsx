@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect, FunctionComponent } from 'react'
-import { FaPause, FaStop } from 'react-icons/fa'
+import { FaPause, FaPlay, FaStop } from 'react-icons/fa'
 import { GrRotateRight } from 'react-icons/gr'
+import click from '/click.mp3'
+import alarm from '/alarm.mp3'
 
 interface Props {
   hours: number
@@ -13,6 +15,8 @@ interface Props {
 const TimerComponent: FunctionComponent<Props> = (props: Props) => {
   const { hours, minutes, seconds, flag, typeOfPomo } = props
   const Ref = useRef<any>(null)
+  let audio: any = new Audio(click)
+  let alarmAudio: any = new Audio(alarm)
 
   const [timer, setTimer] = useState<string>('00:00:00')
   const [pause, setPause] = useState<boolean>(false)
@@ -46,6 +50,28 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
     }
   }, [typeOfPomo])
 
+  const clickSound = () => {
+    audio
+      .play()
+      .then(() => {
+        console.log('click')
+      })
+      .catch((e: any) => {
+        console.log(e)
+      })
+  }
+
+  const alarmSound = () => {
+    alarmAudio
+      .play()
+      .then(() => {
+        console.log('click')
+      })
+      .catch((e: any) => {
+        console.log(e)
+      })
+  }
+
   const getTimeRemaining = (e: any) => {
     const total: any = Date.parse(e) - Date.parse(new Date().toString())
     const secondsT = Math.floor((total / 1000) % 60)
@@ -65,19 +91,21 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
       // update the timer
       // check if less than 10 then we need to
       // add '0' at the beginning of the variable
-      setTimer(
-        `${
-          hoursT < 9 && hoursT.toString().length == 1 ? '0' + hoursT : hoursT
-        }:${
-          minutesT < 9 && minutesT.toString().length === 1
-            ? '0' + minutesT
-            : minutesT
-        }:${
-          secondsT < 9 && secondsT.toString().length === 1
-            ? '0' + secondsT
-            : secondsT
-        }`
-      )
+      let time = `${
+        hoursT < 9 && hoursT.toString().length == 1 ? '0' + hoursT : hoursT
+      }:${
+        minutesT < 9 && minutesT.toString().length === 1
+          ? '0' + minutesT
+          : minutesT
+      }:${
+        secondsT < 9 && secondsT.toString().length === 1
+          ? '0' + secondsT
+          : secondsT
+      }`
+      setTimer(time)
+      if (time === '00:00:00') {
+        alarmSound()
+      }
     }
   }
 
@@ -105,6 +133,7 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
     }, 1000)
     Ref.current = id
   }
+
   useEffect(() => {
     if (pause) clearInterval(Ref.current)
     else {
@@ -138,15 +167,18 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
 
   const onClickReset = () => {
     clearTimer(getDeadTime(), hours, minutes, seconds)
+    clickSound()
   }
 
   const onClickPause = () => {
     setPause(!pause)
+    clickSound()
   }
 
   const onClickStop = () => {
     setTimer('00:00:00')
     clearTimer(new Date(), 0, 0, 0)
+    clickSound()
   }
 
   return (
@@ -170,7 +202,11 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
           className="w-16 h-16 flex flex-row items-center gap-2 justify-center bg-red-500 rounded-full shadow-lg hover:cursor-pointer hover:drop-shadow-xl hover:bg-red-600 hover:scale-105"
           onClick={() => onClickPause()}
         >
-          <FaPause className="text-slate-200 hover:scale-125" />
+          {pause ? (
+            <FaPlay className="text-slate-200 hover:scale-125" size={18} />
+          ) : (
+            <FaPause className="text-slate-200 hover:scale-125" />
+          )}
         </div>
         <div
           className="w-12 h-12 flex flex-row items-center gap-2 justify-center bg-slate-200 rounded-full shadow-lg hover:cursor-pointer hover:shadow-xl hover:bg-slate-300 hover:scale-105"
