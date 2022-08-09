@@ -1,12 +1,36 @@
-## Build Setup
+### Pomodora
 
-``` bash
-# install dependencies
-$ pnpm install # Or yarn install or npm install
+Pomodoro® and The Pomodoro Technique® are trademarks of Francesco Cirillo. This project is not affiliated or associated with or endorsed by Pomodoro®, The Pomodoro Technique® or Francesco Cirillo.
 
-# serve with hot reload at localhost:3000
-$ pnpm run dev #Or yarn run dev or npm run dev
+## Features
+
+- Pomodoro, Short Breaks & Long Breaks
+- Start, Pause & Reset timer
+- Dark & Light Themed
+- Audio notifications
+
+## To-Do
+
+- Configurable Breaks
+- Push Notifications
+
+
+## Developer Setup
+
+```javascript
+
+#install dependencies
+> pnpm install
+
+#run application 
+> pnpm run dev
 
 ```
 
-> Delete lock file and install if need be
+## Credits
+
+Icons -- [React Icons](https://react-icons.github.io/react-icons/)
+
+## Licence
+
+MIT
