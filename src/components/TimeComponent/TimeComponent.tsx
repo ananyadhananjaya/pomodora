@@ -167,6 +167,7 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
 
   const onClickStop = () => {
     setTimer('00:00')
+    setPause(true)
     clearTimer(new Date(), 0, 0)
     clickSound()
   }
