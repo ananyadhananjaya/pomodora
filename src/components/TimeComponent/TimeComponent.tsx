@@ -18,7 +18,7 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
   let audio: any = new Audio(click)
   let alarmAudio: any = new Audio(alarm)
 
-  const [timer, setTimer] = useState<string>('00:00:00')
+  const [timer, setTimer] = useState<string>('00:00')
   const [pause, setPause] = useState<boolean>(false)
   const [message, setMessage] = useState<string>('...')
 
@@ -76,24 +76,20 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
     const total: any = Date.parse(e) - Date.parse(new Date().toString())
     const secondsT = Math.floor((total / 1000) % 60)
     const minutesT = Math.floor((total / 1000 / 60) % 60)
-    const hoursT = Math.floor((total / 1000 / 60 / 60) % 24)
     return {
       total,
-      hoursT,
       minutesT,
       secondsT
     }
   }
 
   const startTimer = (e: any) => {
-    let { total, hoursT, minutesT, secondsT } = getTimeRemaining(e)
+    let { total, minutesT, secondsT } = getTimeRemaining(e)
     if (total >= 0) {
       // update the timer
       // check if less than 10 then we need to
       // add '0' at the beginning of the variable
       let time = `${
-        hoursT < 9 && hoursT.toString().length == 1 ? '0' + hoursT : hoursT
-      }:${
         minutesT < 9 && minutesT.toString().length === 1
           ? '0' + minutesT
           : minutesT
@@ -103,19 +99,19 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
           : secondsT
       }`
       setTimer(time)
-      if (time === '00:00:00') {
+      if (time === '00:00') {
         alarmSound()
       }
     }
   }
 
-  const clearTimer = (e: any, hours: any, minutes: any, seconds: any) => {
+  const clearTimer = (e: any, minutes: any, seconds: any) => {
     // If you adjust it you should also need to
     // adjust the Endtime formula we are about
     // to code next
 
     setTimer(
-      `${hours < 9 && hours.toString().length == 1 ? '0' + hours : hours}:${
+      `${
         minutes < 9 && minutes.toString().length === 1 ? '0' + minutes : minutes
       }:${
         seconds < 9 && seconds.toString().length === 1 ? '0' + seconds : seconds
@@ -129,7 +125,7 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
     if (Ref.current || pause) clearInterval(Ref.current)
 
     const id = setInterval(() => {
-      startTimer(e)
+      if (!pause) startTimer(e)
     }, 1000)
     Ref.current = id
   }
@@ -137,47 +133,41 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
   useEffect(() => {
     if (pause) clearInterval(Ref.current)
     else {
-      let [hours, minutes, seconds] = timer.split(':')
+      let [minutes, seconds] = timer.split(':')
       let deadline = new Date()
 
-      // This is where you need to adjust if
-      // you entend to add more time
-      deadline.setHours(deadline.getHours() + parseInt(hours))
       deadline.setMinutes(deadline.getMinutes() + parseInt(minutes))
       deadline.setSeconds(deadline.getSeconds() + parseInt(seconds))
-      setTimer(`${hours}:${minutes}:${seconds}`)
-      clearTimer(deadline, hours, minutes, seconds)
+      setTimer(`${minutes}:${seconds}`)
+      clearTimer(deadline, minutes, seconds)
     }
   }, [pause])
 
   const getDeadTime = () => {
     let deadline = new Date()
 
-    // This is where you need to adjust if
-    // you entend to add more time
-    deadline.setHours(deadline.getHours() + hours)
     deadline.setMinutes(deadline.getMinutes() + minutes)
     deadline.setSeconds(deadline.getSeconds() + seconds)
     return deadline
   }
 
   useEffect(() => {
-    clearTimer(getDeadTime(), hours, minutes, seconds)
+    clearTimer(getDeadTime(), minutes, seconds)
   }, [flag])
 
   const onClickReset = () => {
-    clearTimer(getDeadTime(), hours, minutes, seconds)
+    clearTimer(getDeadTime(), minutes, seconds)
     clickSound()
   }
 
-  const onClickPause = () => {
-    setPause(!pause)
+  const onClickPause = (val: boolean) => {
+    setPause(val)
     clickSound()
   }
 
   const onClickStop = () => {
-    setTimer('00:00:00')
-    clearTimer(new Date(), 0, 0, 0)
+    setTimer('00:00')
+    clearTimer(new Date(), 0, 0)
     clickSound()
   }
 
@@ -200,7 +190,7 @@ const TimerComponent: FunctionComponent<Props> = (props: Props) => {
         </div>
         <div
           className="w-16 h-16 flex flex-row items-center gap-2 justify-center bg-red-500 rounded-full shadow-lg hover:cursor-pointer hover:drop-shadow-xl hover:bg-red-600 hover:scale-105"
-          onClick={() => onClickPause()}
+          onClick={() => onClickPause(!pause)}
         >
           {pause ? (
             <FaPlay className="text-slate-200 hover:scale-125" size={18} />

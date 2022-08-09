@@ -2,6 +2,7 @@ import { FunctionComponent, useState } from 'react'
 import TimerComponent from '../TimeComponent'
 import { CgTimer } from 'react-icons/cg'
 import { RiTimerLine, RiTimer2Line } from 'react-icons/ri'
+import { BsThreeDotsVertical } from 'react-icons/bs'
 import click from '/click.mp3'
 
 const BreakComponent: FunctionComponent = () => {
