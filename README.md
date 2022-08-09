@@ -1,4 +1,4 @@
-### Pomodora
+# Pomodora
 
 Pomodoro® and The Pomodoro Technique® are trademarks of Francesco Cirillo. This project is not affiliated or associated with or endorsed by Pomodoro®, The Pomodoro Technique® or Francesco Cirillo.
 
@@ -33,4 +33,4 @@ Icons -- [React Icons](https://react-icons.github.io/react-icons/)
 
 ## Licence
 
-MIT
+[MIT](https://github.com/ananyadhananjaya/pomodora/blob/main/LICENCE.md)
