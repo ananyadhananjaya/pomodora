@@ -40,8 +40,8 @@ const BreakComponent: FunctionComponent = () => {
         <div
           className={`${
             typeOfPomo === 'Pomodora'
-              ? 'flex flex-col bg-slate-50 rounded-lg p-4 shadow-md hover:cursor-pointer hover:shadow'
-              : 'flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg'
+              ? 'flex flex-col bg-slate-50  rounded-lg p-4 shadow-md hover:cursor-pointer hover:shadow'
+              : 'flex flex-col bg-slate-200 dark:bg-slate-600 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg'
           }`}
           onClick={() => {
             handleTimer(0, pomodora, 0)
@@ -51,15 +51,31 @@ const BreakComponent: FunctionComponent = () => {
         >
           <div className="flex gap-2">
             <CgTimer className="m-auto" size={24} />
-            <div className="font-mono font-bold"> Pomodoro Time</div>
+            <div
+              className={
+                typeOfPomo == 'Pomodora'
+                  ? `font-mono font-bold`
+                  : `font-mono font-bold dark:text-white`
+              }
+            >
+              Pomodoro Time
+            </div>
           </div>
-          <div className=" flex justify-center text-2xl">{pomodora}</div>
+          <div
+            className={
+              typeOfPomo == 'Pomodora'
+                ? `flex justify-center text-2xl`
+                : `flex justify-center text-2xl dark:text-white`
+            }
+          >
+            {pomodora}
+          </div>
         </div>
         <div
           className={`${
             typeOfPomo === 'Short Break'
               ? 'flex flex-col bg-slate-50 rounded-lg p-4 shadow-md hover:cursor-pointer hover:shadow'
-              : 'flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg'
+              : 'flex flex-col bg-slate-200 dark:bg-slate-600 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg'
           }`}
           onClick={() => {
             handleTimer(0, shortBreak, 0)
@@ -69,15 +85,31 @@ const BreakComponent: FunctionComponent = () => {
         >
           <div className="flex gap-2">
             <RiTimerLine size={24} />
-            <div className="font-mono font-bold">Short Break</div>
+            <div
+              className={
+                typeOfPomo == 'Short Break'
+                  ? `font-mono font-bold`
+                  : `font-mono font-bold dark:text-white`
+              }
+            >
+              Short Break
+            </div>
           </div>
-          <div className=" flex justify-center text-2xl">{shortBreak}</div>
+          <div
+            className={
+              typeOfPomo == 'Short Break'
+                ? `flex justify-center text-2xl`
+                : `flex justify-center text-2xl dark:text-white`
+            }
+          >
+            {shortBreak}
+          </div>
         </div>
         <div
           className={`${
             typeOfPomo === 'Long Break'
               ? 'flex flex-col bg-slate-50 rounded-lg p-4 shadow-md hover:cursor-pointer hover:shadow'
-              : 'flex flex-col bg-slate-200 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg'
+              : 'flex flex-col bg-slate-200 dark:bg-slate-600 rounded-lg p-4 shadow-md hover:cursor-pointer hover:bg-slate-100 hover:shadow-lg'
           }`}
           onClick={() => {
             handleTimer(0, longBreak, 0)
@@ -87,9 +119,25 @@ const BreakComponent: FunctionComponent = () => {
         >
           <div className="flex gap-2">
             <RiTimer2Line size={24} />
-            <div className="font-mono font-bold">Long Break</div>
+            <div
+              className={
+                typeOfPomo == 'Long Break'
+                  ? `font-mono font-bold`
+                  : `font-mono font-bold dark:text-white`
+              }
+            >
+              Long Break
+            </div>
           </div>
-          <div className="flex justify-center text-2xl">{longBreak}</div>
+          <div
+            className={
+              typeOfPomo == 'Long Break'
+                ? `flex justify-center text-2xl`
+                : `flex justify-center text-2xl dark:text-white`
+            }
+          >
+            {longBreak}
+          </div>
         </div>
       </div>
       <TimerComponent
