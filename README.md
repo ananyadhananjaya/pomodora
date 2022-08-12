@@ -13,6 +13,7 @@ Pomodoro® and The Pomodoro Technique® are trademarks of Francesco Cirillo. Thi
 
 - Configurable Breaks
 - Push Notifications
+- Have it as a Chrome Extension
 
 
 ## Developer Setup
